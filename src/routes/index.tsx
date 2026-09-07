@@ -58,6 +58,12 @@ const steps = [
   ["Future-test it", "Why will this still matter when Hawky is 10× bigger?"],
 ];
 
+const objectives = [
+  ["Protect", "Identify what is already special about Hawky and must not be lost as we grow."],
+  ["Define", "Turn those beliefs into clear, memorable behaviours that guide everyday decisions."],
+  ["Choose", "Bring the team’s ideas together, discuss them, and vote for the values we will all own."],
+];
+
 const sources = [
   ["Amazon", "https://www.aboutamazon.com/news/workplace/what-do-each-of-amazons-16-leadership-principles-really-mean"],
   ["Tata", "https://www.tata.com/about-us/tata-values-purpose"],
@@ -79,33 +85,39 @@ function Index() {
       <div className="relative mx-auto max-w-6xl px-5 py-8 sm:px-8 sm:py-10">
         <header className="flex items-center justify-between">
           <a href="#top" className="flex items-center gap-3" aria-label="Hawky.ai values workshop home">
-            <span className="brand-mark">H</span>
+            <span className="brand-mark">h</span>
             <span className="leading-tight">
-              <span className="block font-display text-lg font-semibold">hawky<span className="text-brand">.ai</span></span>
-              <span className="block text-xs font-bold text-foreground/50">Values workshop</span>
+              <span className="block font-display text-lg font-bold">hawky</span>
+              <span className="block text-xs font-semibold text-foreground/50">Values workshop</span>
             </span>
           </a>
-          <span className="glass-chip hidden sm:inline-flex">30 people → next chapter</span>
+          <span className="glass-chip hidden sm:inline-flex">Internal · 30-person team</span>
         </header>
 
-        <section id="top" className="hero-panel mt-10 p-7 sm:mt-12 sm:p-12 lg:p-16">
-          <StepLabel>Our values workshop</StepLabel>
-          <h1 className="mt-6 max-w-4xl font-display text-5xl font-bold leading-[0.98] sm:text-7xl lg:text-8xl">
-            A new office.<br />A new <span className="hero-accent">chapter.</span>
+        <section id="top" className="hero-panel mt-8 p-7 sm:mt-10 sm:p-12 lg:p-16">
+          <StepLabel>Values workshop · The objective</StepLabel>
+          <h1 className="mt-6 max-w-5xl font-display text-5xl font-bold leading-[0.98] sm:text-7xl lg:text-8xl">
+            Define the values that will guide <span className="hero-accent">Hawky’s next chapter.</span>
           </h1>
-          <p className="mt-7 max-w-3xl text-xl font-semibold leading-snug text-foreground/80 sm:text-2xl">
-            Hawky is growing. The question isn’t what we want to put on a wall. It’s <strong className="text-foreground">what we want to remain true about us</strong> as we become much, much bigger.
+          <p className="mt-7 max-w-3xl text-xl leading-snug text-foreground/70 sm:text-2xl">
+            As we move from our old office into the new one, every team member will help decide <strong className="text-foreground">what we carry forward and how we want to work as we grow.</strong>
           </p>
-          <p className="mt-5 max-w-2xl text-base leading-relaxed text-foreground/65 sm:text-lg">
-            This week, think about the behaviours, attitudes and ways of working that made Hawky feel like Hawky. Then help us decide what we carry forward.
-          </p>
-          <a href="#your-turn" className="mt-8 inline-flex items-center gap-2 rounded-xl bg-primary px-5 py-3 font-bold text-primary-foreground transition-transform hover:-translate-y-0.5">
-            Jump to your questions <ArrowDown className="size-4" />
-          </a>
-          <div className="mt-9 flex flex-wrap gap-3">
-            <span className="glass-chip">14 principles · inspiration</span>
-            <span className="glass-chip">10 ideas · not final</span>
-            <span className="glass-chip">Paper + team vote</span>
+          <div className="objective-grid mt-10">
+            {objectives.map(([title, text], index) => (
+              <article key={title} className="objective-item">
+                <span>0{index + 1}</span>
+                <div>
+                  <h2>{title}</h2>
+                  <p>{text}</p>
+                </div>
+              </article>
+            ))}
+          </div>
+          <div className="mt-8 flex flex-wrap items-center gap-4">
+            <a href="#your-turn" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground transition-transform hover:-translate-y-0.5">
+              See what you need to do <ArrowDown className="size-4" />
+            </a>
+            <p className="text-sm font-semibold text-foreground/55">Reflect this week · Submit on paper · Vote as a team</p>
           </div>
         </section>
 
