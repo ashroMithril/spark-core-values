@@ -49,6 +49,7 @@ const values = [
   { name: "One Hawky", meaning: "Product, engineering, sales, marketing and operations are different functions — but one company.", test: "Are we optimising for our team, or for Hawky?" },
   { name: "Be resourceful", meaning: "Constraints should make us creative, not helpless.", test: "When we don’t have enough time, money or people, do we find another path?" },
   { name: "Bring the energy", meaning: "Make the people around you better. Bring optimism without pretending every problem is easy.", test: "After working with you, do people feel more capable or less capable?" },
+  { name: "Stay till it's solved", meaning: "This isn't about hours in the office. It's about not walking away from the bug that would've spoiled tomorrow's demo, the report the customer is waiting on, or the creative that's due — until it's actually done.", test: "It's late and something isn't finished. Do we call it a day, or do we care enough to see it through?" },
 ];
 
 const steps = [
@@ -65,7 +66,7 @@ const objectives = [
 ];
 
 const sources = [
-  ["Amazon", "https://www.aboutamazon.com/news/workplace/what-do-each-of-amazons-16-leadership-principles-really-mean"],
+  ["Amazon", "https://www.aboutamazon.in/news/workplace/importance-of-amazon-leadership-principles-explained"],
   ["Tata", "https://www.tata.com/about-us/tata-values-purpose"],
   ["Netflix", "https://jobs.netflix.com/culture"],
   ["Stripe", "https://stripe.com/guides/atlas/creating-your-founding-documents"],
@@ -102,6 +103,9 @@ function Index() {
           <p className="mt-7 max-w-3xl text-xl leading-snug text-foreground/70 sm:text-2xl">
             As we move from our old office into the new one, every team member will help decide <strong className="text-foreground">what we carry forward and how we want to work as we grow.</strong>
           </p>
+          <p className="mt-4 max-w-3xl text-lg leading-snug text-foreground/70 sm:text-xl">
+            We think all of you are leaders. The first thirty people at Hawky will go on to lead different parts of the company we become — so today, as a leader, we're not asking you to invent something from nothing. Put down a value you're already living. It goes into the Hawky dictionary, <strong className="text-foreground">read and followed by everyone who joins after you.</strong>
+          </p>
           <div className="objective-grid mt-10">
             {objectives.map(([title, text], index) => (
               <article key={title} className="objective-item">
@@ -123,7 +127,7 @@ function Index() {
 
         <section className="section-space">
           <StepLabel tone="sky">01 · Why values?</StepLabel>
-          <h2 className="section-title">At 5 people, culture is obvious.<br />At 100, it needs to be explicit.</h2>
+          <h2 className="section-title">At 5 people, culture is obvious.<br />At 30 and growing, it needs to be explicit.</h2>
           <p className="section-intro">When everyone sits together, people absorb culture without being told. As a company grows, values turn invisible habits into shared expectations.</p>
           <div className="mt-8 grid gap-4 md:grid-cols-2">
             <article className="glass-card">
@@ -236,6 +240,7 @@ function Index() {
           <h2 className="section-title mx-auto max-w-3xl">We don’t want 20 beautiful words.</h2>
           <p className="section-intro mx-auto">We’ll collect everyone’s ideas, find patterns, combine themes, challenge the vague ones, debate the difficult ones — and then vote.</p>
           <p className="closing-statement">The goal is a small set of behaviours we want Hawky to be known for.</p>
+          <p className="mt-4 text-sm font-semibold text-foreground/55">This page is just to get you thinking. You’ll get an actual paper to write your value down on by Friday.</p>
         </section>
 
         <footer className="border-t border-border/60 py-8 text-sm text-foreground/50">
