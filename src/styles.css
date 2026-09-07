@@ -181,6 +181,6 @@
 @utility prompt-number { display: grid; width: 2rem; height: 2rem; flex-shrink: 0; place-items: center; border-radius: 999px; background: color-mix(in oklab, var(--accent) 18%, transparent); color: color-mix(in oklab, var(--accent) 72%, var(--foreground)); font-weight: 800; }
 @utility closing-statement { margin: 2rem auto 0; max-width: 48rem; border-radius: 1.5rem; background: color-mix(in oklab, var(--accent) 16%, white 44%); border: 1px solid color-mix(in oklab, white 78%, transparent); padding: 1.5rem; font-family: var(--font-display); font-size: clamp(1.35rem, 3vw, 2rem); line-height: 1.25; font-weight: 600; }
 
-@media (max-width: 640px) { @utility section-space { padding-top: 4rem; padding-bottom: 1rem; } }
+@media (max-width: 640px) { .section-space { padding-top: 4rem; padding-bottom: 1rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition-duration: 0.01ms !important; } }
 @media print { .page-wash { display: none; } body { background: white; } .hero-panel, .glass-card, .workshop-panel, .paper-panel { box-shadow: none; background: white; border: 1px solid var(--border); } }
