@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Plus } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Plus, CalendarClock, FileText } from "lucide-react";
+import * as React from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -77,6 +78,68 @@ const sources = [
 
 function StepLabel({ children, tone = "brand" }: { children: React.ReactNode; tone?: "brand" | "sky" | "mint" }) {
   return <span className={`step-label step-label-${tone}`}>{children}</span>;
+}
+
+const DISCUSSION_DATE = new Date("2026-09-12T06:30:00.000Z");
+
+function formatTimeUnit(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = React.useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    expired: boolean;
+  } | null>(null);
+
+  React.useEffect(() => {
+    const calculate = () => {
+      const now = Date.now();
+      const diff = DISCUSSION_DATE.getTime() - now;
+      if (diff <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+      }
+      return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+        expired: false,
+      };
+    };
+
+    setTimeLeft(calculate());
+    const interval = setInterval(() => setTimeLeft(calculate()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="countdown-card" aria-label="Countdown to values discussion">
+      <div className="countdown-meta">
+        <CalendarClock className="size-4" />
+        <span className="font-semibold">Values discussion</span>
+        <span className="countdown-separator" aria-hidden="true" />
+        <span className="text-foreground/70">Saturday, 12 Sep · 12:00 PM IST</span>
+      </div>
+      {timeLeft ? (
+        timeLeft.expired ? (
+          <p className="countdown-expired">The discussion is happening now.</p>
+        ) : (
+          <div className="countdown-units" aria-live="polite">
+            <div><span>{timeLeft.days}</span><span>days</span></div>
+            <div><span>{formatTimeUnit(timeLeft.hours)}</span><span>hrs</span></div>
+            <div><span>{formatTimeUnit(timeLeft.minutes)}</span><span>min</span></div>
+            <div><span>{formatTimeUnit(timeLeft.seconds)}</span><span>sec</span></div>
+          </div>
+        )
+      ) : (
+        <p className="countdown-loading">Loading countdown…</p>
+      )}
+    </div>
+  );
 }
 
 function Index() {
