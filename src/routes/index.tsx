@@ -1,5 +1,6 @@
 import { createFileRoute } from "@tanstack/react-router";
-import { ArrowDown, ArrowUpRight, Plus } from "lucide-react";
+import { ArrowDown, ArrowUpRight, Plus, CalendarClock, FileText } from "lucide-react";
+import * as React from "react";
 
 export const Route = createFileRoute("/")({
   head: () => ({
@@ -79,6 +80,68 @@ function StepLabel({ children, tone = "brand" }: { children: React.ReactNode; to
   return <span className={`step-label step-label-${tone}`}>{children}</span>;
 }
 
+const DISCUSSION_DATE = new Date("2026-09-12T06:30:00.000Z");
+
+function formatTimeUnit(value: number) {
+  return String(value).padStart(2, "0");
+}
+
+function CountdownTimer() {
+  const [timeLeft, setTimeLeft] = React.useState<{
+    days: number;
+    hours: number;
+    minutes: number;
+    seconds: number;
+    expired: boolean;
+  } | null>(null);
+
+  React.useEffect(() => {
+    const calculate = () => {
+      const now = Date.now();
+      const diff = DISCUSSION_DATE.getTime() - now;
+      if (diff <= 0) {
+        return { days: 0, hours: 0, minutes: 0, seconds: 0, expired: true };
+      }
+      return {
+        days: Math.floor(diff / (1000 * 60 * 60 * 24)),
+        hours: Math.floor((diff / (1000 * 60 * 60)) % 24),
+        minutes: Math.floor((diff / (1000 * 60)) % 60),
+        seconds: Math.floor((diff / 1000) % 60),
+        expired: false,
+      };
+    };
+
+    setTimeLeft(calculate());
+    const interval = setInterval(() => setTimeLeft(calculate()), 1000);
+    return () => clearInterval(interval);
+  }, []);
+
+  return (
+    <div className="countdown-card" aria-label="Countdown to values discussion">
+      <div className="countdown-meta">
+        <CalendarClock className="size-4" />
+        <span className="font-semibold">Values discussion</span>
+        <span className="countdown-separator" aria-hidden="true" />
+        <span className="text-foreground/70">Saturday, 12 Sep · 12:00 PM IST</span>
+      </div>
+      {timeLeft ? (
+        timeLeft.expired ? (
+          <p className="countdown-expired">The discussion is happening now.</p>
+        ) : (
+          <div className="countdown-units" aria-live="polite">
+            <div><span>{timeLeft.days}</span><span>days</span></div>
+            <div><span>{formatTimeUnit(timeLeft.hours)}</span><span>hrs</span></div>
+            <div><span>{formatTimeUnit(timeLeft.minutes)}</span><span>min</span></div>
+            <div><span>{formatTimeUnit(timeLeft.seconds)}</span><span>sec</span></div>
+          </div>
+        )
+      ) : (
+        <p className="countdown-loading">Loading countdown…</p>
+      )}
+    </div>
+  );
+}
+
 function Index() {
   return (
     <main className="min-h-screen overflow-hidden bg-background font-body text-foreground">
@@ -117,11 +180,12 @@ function Index() {
               </article>
             ))}
           </div>
+          <CountdownTimer />
           <div className="mt-8 flex flex-wrap items-center gap-4">
             <a href="#your-turn" className="inline-flex items-center gap-2 rounded-md bg-primary px-5 py-3 font-bold text-primary-foreground transition-transform hover:-translate-y-0.5">
               See what you need to do <ArrowDown className="size-4" />
             </a>
-            <p className="text-sm font-semibold text-foreground/55">Reflect this week · Submit on paper · Vote as a team</p>
+            <p className="text-sm font-semibold text-foreground/55">Reflect this week · Document drops Friday · Discuss Saturday 12pm</p>
           </div>
         </section>
 
@@ -203,7 +267,11 @@ function Index() {
         <section id="your-turn" className="workshop-panel section-space p-7 sm:p-12">
           <StepLabel>05 · Your turn</StepLabel>
           <h2 className="section-title max-w-4xl">What do you want to carry from the old Hawky into the next Hawky?</h2>
-          <p className="section-intro">At the end of the week, you’ll get a sheet of paper. Don’t write what sounds impressive. Write what feels true.</p>
+          <p className="section-intro">On Friday, you’ll receive a reflection document. Use it over the weekend, then bring your ideas to the team discussion on Saturday at 12pm. Don’t write what sounds impressive. Write what feels true.</p>
+          <div className="friday-document-banner" role="note">
+            <FileText className="size-5 shrink-0 text-accent" aria-hidden="true" />
+            <p><strong>Document drops Friday.</strong> It will have space for your top values, the stories behind them, and the behaviours you want to protect.</p>
+          </div>
           <div className="mt-9 grid gap-3 sm:grid-cols-2 lg:grid-cols-4">
             {steps.map(([title, text], index) => (
               <article key={title} className="workshop-step">
@@ -238,9 +306,9 @@ function Index() {
         <section className="section-space pb-12 text-center">
           <StepLabel tone="mint">06 · What happens next?</StepLabel>
           <h2 className="section-title mx-auto max-w-3xl">We don’t want 20 beautiful words.</h2>
-          <p className="section-intro mx-auto">We’ll collect everyone’s ideas, find patterns, combine themes, challenge the vague ones, debate the difficult ones — and then vote.</p>
-          <p className="closing-statement">The goal is a small set of behaviours we want Hawky to be known for.</p>
-          <p className="mt-4 text-sm font-semibold text-foreground/55">This page is just to get you thinking. You’ll get an actual paper to write your value down on by Friday.</p>
+          <p className="section-intro mx-auto">We’ll collect everyone’s ideas from Friday’s document, find patterns, combine themes, challenge the vague ones, debate the difficult ones — and then vote.</p>
+          <p className="closing-statement">The goal is a small set of behaviours we want Hawky to be known for, decided together on Saturday.</p>
+          <p className="mt-4 text-sm font-semibold text-foreground/55">Document lands Friday · Team discussion Saturday 12pm IST</p>
         </section>
 
         <footer className="border-t border-border/60 py-8 text-sm text-foreground/50">
