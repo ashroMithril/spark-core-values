@@ -209,4 +209,4 @@
 
 @media (max-width: 640px) { .section-space { padding-top: 4rem; padding-bottom: 1rem; } }
 @media (prefers-reduced-motion: reduce) { html { scroll-behavior: auto; } * { transition-duration: 0.01ms !important; } }
-@media print { .page-wash { display: none; } body { background: white; } .hero-panel, .glass-card, .workshop-panel, .paper-panel { box-shadow: none; background: white; border: 1px solid var(--border); } }
+@media print { .page-wash { display: none; } body { background: white; } .hero-panel, .glass-card, .workshop-panel, .paper-panel, .countdown-card, .friday-document-banner { box-shadow: none; background: white; border: 1px solid var(--border); } }
